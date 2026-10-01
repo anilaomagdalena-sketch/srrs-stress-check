@@ -65,3 +65,15 @@ test("どの区分にもひとことがあり、高めは相談を勧める", ()
   }
   assert.ok(band(300).comment.includes("医療機関"));
 });
+
+test("低めのひとことは、変化が少なかったと決めつけない", () => {
+  // 配偶者の死（100点）だけでも低めの区分に入る
+  assert.ok(!band(100).comment.includes("少なかった"));
+  assert.ok(band(100).comment.includes("ひとつの出来事"));
+});
+
+test("目安は期間を言い切らない（一次資料で確かめられていないため）", () => {
+  for (const b of [band(200), band(300)]) {
+    assert.ok(!/年以内/.test(b.guide));
+  }
+});

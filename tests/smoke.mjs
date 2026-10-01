@@ -168,6 +168,20 @@ try {
   assert.ok(minRowNarrow >= 44, `行の高さが足りない: ${minRowNarrow}px`);
   await setWidth(375);
 
+  step("キーボードで移った項目が合計バーの下に隠れない");
+  const hiddenRows = await evaluate(`(() => {
+    const barTop = () => document.querySelector(".bar").getBoundingClientRect().top;
+    let hidden = 0;
+    for (const input of document.querySelectorAll("#items input")) {
+      input.focus();
+      if (input.closest(".item").getBoundingClientRect().bottom > barTop() + 1) hidden++;
+    }
+    document.activeElement.blur();
+    window.scrollTo(0, 0);
+    return hidden;
+  })()`);
+  assert.equal(hiddenRows, 0, `バーの下に隠れる行がある: ${hiddenRows}行`);
+
   step("チェック0件で結果を見る: 0点・低め、目安の数字なし、注記4件");
   await click("#show-result");
   assert.equal(await isHidden("#result"), false);
@@ -192,6 +206,7 @@ try {
   await click("#show-result");
   assert.equal(await text("#result-score"), "173");
   assert.equal(await evaluate(`document.querySelector("#result").dataset.band`), "low");
+  assert.equal(await evaluate(`document.activeElement.id`), "result-title");
 
   step("結果を出したままチェックを足す: 238点・中くらいに変わる");
   await clickItem(2);

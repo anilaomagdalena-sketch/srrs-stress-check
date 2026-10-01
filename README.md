@@ -21,7 +21,7 @@
 
 ## テスト
 
-    node --test tests/        # または bun test
+    node --test tests/*.test.js   # または bun test
     node tests/smoke.mjs      # 通しテスト。Google Chromeが必要
 
 ## 文言を直すとき

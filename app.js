@@ -62,6 +62,8 @@ function update() {
 document.getElementById("show-result").addEventListener("click", () => {
   resultEl.hidden = false;
   update();
+  // 読み上げやキーボード操作の人も結果へ移れるよう、見出しにフォーカスを移す
+  document.getElementById("result-title").focus({ preventScroll: true });
   resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
