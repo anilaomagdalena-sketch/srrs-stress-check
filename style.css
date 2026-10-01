@@ -1,0 +1,260 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f6f4ee;
+  --surface: #ffffff;
+  --text: #1f2a33;
+  --muted: #5b6770;
+  --line: #dcd8cd;
+  --accent: #1b6a86;
+  --accent-text: #ffffff;
+  --low: #2c7a58;
+  --mid: #a86200;
+  --high: #b23a2a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12181d;
+    --surface: #1b242b;
+    --text: #e8edf0;
+    --muted: #a3b0b8;
+    --line: #2f3b44;
+    --accent: #4fa9c9;
+    --accent-text: #0b1418;
+    --low: #5fc79a;
+    --mid: #e3a64a;
+    --high: #ef8272;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  /* 下に固定した合計バーの分だけ余白を取る */
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+}
+
+h1 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+.privacy,
+.notice {
+  padding: 0.75rem 1rem;
+  border-left: 0.25rem solid var(--accent);
+  background: var(--surface);
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.items {
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.items li + li {
+  border-top: 1px solid var(--line);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.item input {
+  flex: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.item-label {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.item-score {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.item:has(input:checked) {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.item:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.result {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 0.4rem solid var(--band, var(--accent));
+  border-radius: 0.75rem;
+  scroll-margin-top: 1rem;
+}
+
+.result[data-band="low"] {
+  --band: var(--low);
+}
+
+.result[data-band="mid"] {
+  --band: var(--mid);
+}
+
+.result[data-band="high"] {
+  --band: var(--high);
+}
+
+.result-score {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-score small {
+  margin-left: 0.2rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.result-band {
+  color: var(--band, var(--accent));
+  font-weight: 700;
+}
+
+.notes {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.notes ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+footer {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.bar-total {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.bar-total strong {
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar-count {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.primary {
+  flex: none;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.secondary {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
